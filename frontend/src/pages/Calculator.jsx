@@ -191,17 +191,17 @@ export default function Calculator() {
             {transport.map((trip, i) => (
               <div key={i} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr auto', gap: 12, alignItems: 'end' }}>
                 <div className="form-group">
-                  <label className="form-label">Vehicle Type</label>
-                  <select className="form-select" value={trip.vehicle_type} onChange={(e) => updateTrip(i, 'vehicle_type', e.target.value)}>
+                  <label className="form-label" htmlFor={`trip-vehicle-${i}`}>Vehicle Type</label>
+                  <select id={`trip-vehicle-${i}`} className="form-select" value={trip.vehicle_type} onChange={(e) => updateTrip(i, 'vehicle_type', e.target.value)}>
                     {VEHICLE_TYPES.map((v) => <option key={v.value} value={v.value}>{v.label}</option>)}
                   </select>
                 </div>
                 <div className="form-group">
-                  <label className="form-label">Distance (km)</label>
-                  <input type="number" min="0" className="form-input" placeholder="e.g. 25" value={trip.distance_km} onChange={(e) => updateTrip(i, 'distance_km', e.target.value)} />
+                  <label className="form-label" htmlFor={`trip-distance-${i}`}>Distance (km)</label>
+                  <input id={`trip-distance-${i}`} type="number" min="0" className="form-input" placeholder="e.g. 25" value={trip.distance_km} onChange={(e) => updateTrip(i, 'distance_km', e.target.value)} />
                 </div>
                 {transport.length > 1 && (
-                  <button onClick={() => removeTrip(i)} style={{ background: 'rgba(255,82,82,0.1)', border: '1px solid rgba(255,82,82,0.2)', borderRadius: 'var(--radius-md)', padding: '10px 12px', cursor: 'pointer', color: '#ff5252', height: 42 }}>✕</button>
+                  <button onClick={() => removeTrip(i)} aria-label={`Remove trip ${i + 1}`} style={{ background: 'rgba(255,82,82,0.1)', border: '1px solid rgba(255,82,82,0.2)', borderRadius: 'var(--radius-md)', padding: '10px 12px', cursor: 'pointer', color: '#ff5252', height: 42 }}>✕</button>
                 )}
               </div>
             ))}
@@ -219,8 +219,8 @@ export default function Calculator() {
               { key: 'renewable_kwh', label: '☀️ Renewable', unit: 'kWh' },
             ].map(({ key, label, unit }) => (
               <div key={key} className="form-group">
-                <label className="form-label">{label} ({unit})</label>
-                <input type="number" min="0" className="form-input" placeholder="0" value={energy[key]} onChange={(e) => setEnergy((p) => ({ ...p, [key]: e.target.value }))} />
+                <label className="form-label" htmlFor={`energy-${key}`}>{label} ({unit})</label>
+                <input id={`energy-${key}`} name={key} type="number" min="0" className="form-input" placeholder="0" value={energy[key]} onChange={(e) => setEnergy((p) => ({ ...p, [key]: e.target.value }))} />
               </div>
             ))}
           </div>
@@ -234,6 +234,7 @@ export default function Calculator() {
                 <button
                   key={diet.value}
                   onClick={() => setFood((p) => ({ ...p, diet_type: diet.value }))}
+                  aria-pressed={food.diet_type === diet.value}
                   style={{
                     padding: '18px', borderRadius: 'var(--radius-md)',
                     border: `2px solid ${food.diet_type === diet.value ? diet.color : 'var(--border-color)'}`,
@@ -250,8 +251,8 @@ export default function Calculator() {
               ))}
             </div>
             <div className="form-group" style={{ maxWidth: 200 }}>
-              <label className="form-label">Number of Days</label>
-              <input type="number" min="1" max="365" className="form-input" value={food.days} onChange={(e) => setFood((p) => ({ ...p, days: e.target.value }))} />
+              <label className="form-label" htmlFor="food-days">Number of Days</label>
+              <input id="food-days" name="days" type="number" min="1" max="365" className="form-input" value={food.days} onChange={(e) => setFood((p) => ({ ...p, days: e.target.value }))} />
             </div>
           </div>
         )}
@@ -266,8 +267,8 @@ export default function Calculator() {
               { key: 'landfill_kg', label: '⚠️ Landfill', unit: 'kg', desc: '0.8 kg CO₂/kg' },
             ].map(({ key, label, unit, desc }) => (
               <div key={key} className="form-group">
-                <label className="form-label">{label} ({unit})</label>
-                <input type="number" min="0" className="form-input" placeholder="0" value={waste[key]} onChange={(e) => setWaste((p) => ({ ...p, [key]: e.target.value }))} />
+                <label className="form-label" htmlFor={`waste-${key}`}>{label} ({unit})</label>
+                <input id={`waste-${key}`} name={key} type="number" min="0" className="form-input" placeholder="0" value={waste[key]} onChange={(e) => setWaste((p) => ({ ...p, [key]: e.target.value }))} />
                 <span style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>{desc}</span>
               </div>
             ))}

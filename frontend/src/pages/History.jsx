@@ -68,8 +68,8 @@ export default function History() {
       <div className="glass-card" style={{ padding: '20px 24px', marginBottom: 24 }}>
         <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap', alignItems: 'flex-end' }}>
           <div className="form-group" style={{ minWidth: 160 }}>
-            <label className="form-label">Category</label>
-            <select className="form-select" value={category} onChange={(e) => setCategory(e.target.value)}>
+            <label className="form-label" htmlFor="hist-category">Category</label>
+            <select id="hist-category" name="category" className="form-select" value={category} onChange={(e) => setCategory(e.target.value)}>
               <option value="">All Categories</option>
               <option value="transportation">🚗 Transportation</option>
               <option value="energy">⚡ Energy</option>
@@ -78,12 +78,12 @@ export default function History() {
             </select>
           </div>
           <div className="form-group" style={{ minWidth: 160 }}>
-            <label className="form-label">From Date</label>
-            <input type="date" className="form-input" value={dateFrom} onChange={(e) => setDateFrom(e.target.value)} />
+            <label className="form-label" htmlFor="hist-from">From Date</label>
+            <input id="hist-from" name="date_from" type="date" className="form-input" value={dateFrom} onChange={(e) => setDateFrom(e.target.value)} />
           </div>
           <div className="form-group" style={{ minWidth: 160 }}>
-            <label className="form-label">To Date</label>
-            <input type="date" className="form-input" value={dateTo} onChange={(e) => setDateTo(e.target.value)} />
+            <label className="form-label" htmlFor="hist-to">To Date</label>
+            <input id="hist-to" name="date_to" type="date" className="form-input" value={dateTo} onChange={(e) => setDateTo(e.target.value)} />
           </div>
           <button className="btn btn-primary btn-sm" onClick={handleFilter}><RiFilterLine /> Apply</button>
           <button className="btn btn-ghost btn-sm" onClick={handleReset}><RiRefreshLine /> Reset</button>

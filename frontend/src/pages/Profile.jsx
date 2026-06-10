@@ -108,17 +108,17 @@ export default function Profile() {
       <Section title="Personal Information" icon={RiUserLine}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
           <div className="form-group">
-            <label className="form-label">Full Name</label>
+            <label className="form-label" htmlFor="profile-name">Full Name</label>
             <div style={{ position: 'relative' }}>
-              <RiUserLine size={16} style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
-              <input type="text" className="form-input" style={{ paddingLeft: 40 }} value={profile.name} onChange={(e) => setProfile((p) => ({ ...p, name: e.target.value }))} />
+              <RiUserLine aria-hidden="true" size={16} style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
+              <input id="profile-name" name="name" type="text" autoComplete="name" className="form-input" style={{ paddingLeft: 40 }} value={profile.name} onChange={(e) => setProfile((p) => ({ ...p, name: e.target.value }))} />
             </div>
           </div>
           <div className="form-group">
-            <label className="form-label">Email Address</label>
+            <label className="form-label" htmlFor="profile-email">Email Address</label>
             <div style={{ position: 'relative' }}>
-              <RiMailLine size={16} style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
-              <input type="email" className="form-input" style={{ paddingLeft: 40 }} value={profile.email} onChange={(e) => setProfile((p) => ({ ...p, email: e.target.value }))} />
+              <RiMailLine aria-hidden="true" size={16} style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
+              <input id="profile-email" name="email" type="email" autoComplete="email" className="form-input" style={{ paddingLeft: 40 }} value={profile.email} onChange={(e) => setProfile((p) => ({ ...p, email: e.target.value }))} />
             </div>
           </div>
           <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
@@ -191,12 +191,12 @@ export default function Profile() {
             { key: 'confirm_password', label: 'Confirm New Password', errKey: 'confirm' },
           ].map(({ key, label, errKey }) => (
             <div key={key} className="form-group">
-              <label className="form-label">{label}</label>
+              <label className="form-label" htmlFor={`profile-${key}`}>{label}</label>
               <div style={{ position: 'relative' }}>
-                <RiLockLine size={16} style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
-                <input type="password" className="form-input" style={{ paddingLeft: 40 }} placeholder="••••••••" value={passwords[key]} onChange={(e) => setPasswords((p) => ({ ...p, [key]: e.target.value }))} />
+                <RiLockLine aria-hidden="true" size={16} style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
+                <input id={`profile-${key}`} name={key} type="password" autoComplete={key === 'current_password' ? 'current-password' : 'new-password'} className="form-input" style={{ paddingLeft: 40 }} placeholder="••••••••" value={passwords[key]} aria-invalid={!!errors[errKey]} aria-describedby={errors[errKey] ? `profile-${key}-error` : undefined} onChange={(e) => setPasswords((p) => ({ ...p, [key]: e.target.value }))} />
               </div>
-              {errors[errKey] && <span style={{ color: 'var(--color-error)', fontSize: '0.78rem' }}>{errors[errKey]}</span>}
+              {errors[errKey] && <span id={`profile-${key}-error`} role="alert" style={{ color: 'var(--color-error)', fontSize: '0.78rem' }}>{errors[errKey]}</span>}
             </div>
           ))}
           <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
