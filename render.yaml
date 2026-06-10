@@ -15,10 +15,7 @@ services:
       - key: REFRESH_TOKEN_EXPIRE_DAYS
         value: 7
       - key: DATABASE_URL
-        value: sqlite+aiosqlite:///./data/greengauge.db
+        sync: false
       - key: FRONTEND_URL
         value: https://green-gauge-chi.vercel.app/ # CHANGE THIS IN RENDER DASHBOARD
-    disk:
-      name: greengauge-data
-      mountPath: /opt/render/project/src/backend/data
-      sizeGB: 1
+
