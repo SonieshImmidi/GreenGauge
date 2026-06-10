@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: greengauge-backend
+    env: python
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true
+      - key: ALGORITHM
+        value: HS256
+      - key: ACCESS_TOKEN_EXPIRE_MINUTES
+        value: 30
+      - key: REFRESH_TOKEN_EXPIRE_DAYS
+        value: 7
+      - key: DATABASE_URL
+        value: sqlite+aiosqlite:///./data/greengauge.db
+      - key: FRONTEND_URL
+        value: https://your-vercel-app-url.vercel.app # CHANGE THIS IN RENDER DASHBOARD
+    disk:
+      name: greengauge-data
+      mountPath: /opt/render/project/src/backend/data
+      sizeGB: 1
