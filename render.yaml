@@ -17,5 +17,5 @@ services:
       - key: DATABASE_URL
         sync: false
       - key: FRONTEND_URL
-        value: https://green-gauge-chi.vercel.app/ # CHANGE THIS IN RENDER DASHBOARD
+        value: https://green-gauge-chi.vercel.app
 
