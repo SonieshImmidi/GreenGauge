@@ -3,10 +3,13 @@ uvicorn[standard]
 sqlalchemy
 python-jose[cryptography]
 passlib[bcrypt]
+bcrypt<5
 python-multipart
-pydantic
+pydantic[email]
+email-validator
 pydantic-settings
 python-dotenv
 httpx
 aiosqlite
 asyncpg
+greenlet
