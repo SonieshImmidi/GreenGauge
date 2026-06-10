@@ -90,43 +90,53 @@ export default function Login() {
           <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
             {/* Email */}
             <div className="form-group">
-              <label className="form-label">Email Address</label>
+              <label className="form-label" htmlFor="login-email">Email Address</label>
               <div style={{ position: 'relative' }}>
-                <RiMailLine size={16} style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
+                <RiMailLine aria-hidden="true" size={16} style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
                 <input
+                  id="login-email"
+                  name="email"
                   type="email"
+                  autoComplete="email"
                   className="form-input"
                   style={{ paddingLeft: 40 }}
                   placeholder="you@example.com"
                   value={form.email}
+                  aria-invalid={!!errors.email}
+                  aria-describedby={errors.email ? 'login-email-error' : undefined}
                   onChange={(e) => { setForm((p) => ({ ...p, email: e.target.value })); setErrors((p) => ({ ...p, email: '' })); }}
                 />
               </div>
-              {errors.email && <span style={{ color: 'var(--color-error)', fontSize: '0.78rem' }}>{errors.email}</span>}
+              {errors.email && <span id="login-email-error" role="alert" style={{ color: 'var(--color-error)', fontSize: '0.78rem' }}>{errors.email}</span>}
             </div>
 
             {/* Password */}
             <div className="form-group">
-              <label className="form-label">Password</label>
+              <label className="form-label" htmlFor="login-password">Password</label>
               <div style={{ position: 'relative' }}>
-                <RiLockLine size={16} style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
+                <RiLockLine aria-hidden="true" size={16} style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
                 <input
+                  id="login-password"
+                  name="password"
                   type={showPw ? 'text' : 'password'}
+                  autoComplete="current-password"
                   className="form-input"
                   style={{ paddingLeft: 40, paddingRight: 44 }}
                   placeholder="••••••••"
                   value={form.password}
+                  aria-invalid={!!errors.password}
+                  aria-describedby={errors.password ? 'login-password-error' : undefined}
                   onChange={(e) => { setForm((p) => ({ ...p, password: e.target.value })); setErrors((p) => ({ ...p, password: '' })); }}
                 />
-                <button type="button" onClick={() => setShowPw((p) => !p)} style={{
+                <button type="button" onClick={() => setShowPw((p) => !p)} aria-label={showPw ? 'Hide password' : 'Show password'} aria-pressed={showPw} style={{
                   position: 'absolute', right: 12, top: '50%', transform: 'translateY(-50%)',
                   background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-muted)',
                   display: 'flex', padding: 2,
                 }}>
-                  {showPw ? <RiEyeOffLine size={16} /> : <RiEyeLine size={16} />}
+                  {showPw ? <RiEyeOffLine aria-hidden="true" size={16} /> : <RiEyeLine aria-hidden="true" size={16} />}
                 </button>
               </div>
-              {errors.password && <span style={{ color: 'var(--color-error)', fontSize: '0.78rem' }}>{errors.password}</span>}
+              {errors.password && <span id="login-password-error" role="alert" style={{ color: 'var(--color-error)', fontSize: '0.78rem' }}>{errors.password}</span>}
             </div>
 
             {/* Demo hint */}

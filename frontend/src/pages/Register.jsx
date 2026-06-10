@@ -87,32 +87,32 @@ export default function Register() {
           <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
             {/* Name */}
             <div className="form-group">
-              <label className="form-label">Full Name</label>
+              <label className="form-label" htmlFor="reg-name">Full Name</label>
               <div style={{ position: 'relative' }}>
-                <RiUserLine size={16} style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
-                <input type="text" className="form-input" style={{ paddingLeft: 40 }} placeholder="Jane Smith" value={form.name} onChange={handleChange('name')} />
+                <RiUserLine aria-hidden="true" size={16} style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
+                <input id="reg-name" name="name" type="text" autoComplete="name" className="form-input" style={{ paddingLeft: 40 }} placeholder="Jane Smith" value={form.name} aria-invalid={!!errors.name} aria-describedby={errors.name ? 'reg-name-error' : undefined} onChange={handleChange('name')} />
               </div>
-              {errors.name && <span style={{ color: 'var(--color-error)', fontSize: '0.78rem' }}>{errors.name}</span>}
+              {errors.name && <span id="reg-name-error" role="alert" style={{ color: 'var(--color-error)', fontSize: '0.78rem' }}>{errors.name}</span>}
             </div>
 
             {/* Email */}
             <div className="form-group">
-              <label className="form-label">Email Address</label>
+              <label className="form-label" htmlFor="reg-email">Email Address</label>
               <div style={{ position: 'relative' }}>
-                <RiMailLine size={16} style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
-                <input type="email" className="form-input" style={{ paddingLeft: 40 }} placeholder="you@example.com" value={form.email} onChange={handleChange('email')} />
+                <RiMailLine aria-hidden="true" size={16} style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
+                <input id="reg-email" name="email" type="email" autoComplete="email" className="form-input" style={{ paddingLeft: 40 }} placeholder="you@example.com" value={form.email} aria-invalid={!!errors.email} aria-describedby={errors.email ? 'reg-email-error' : undefined} onChange={handleChange('email')} />
               </div>
-              {errors.email && <span style={{ color: 'var(--color-error)', fontSize: '0.78rem' }}>{errors.email}</span>}
+              {errors.email && <span id="reg-email-error" role="alert" style={{ color: 'var(--color-error)', fontSize: '0.78rem' }}>{errors.email}</span>}
             </div>
 
             {/* Password */}
             <div className="form-group">
-              <label className="form-label">Password</label>
+              <label className="form-label" htmlFor="reg-password">Password</label>
               <div style={{ position: 'relative' }}>
-                <RiLockLine size={16} style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
-                <input type={showPw ? 'text' : 'password'} className="form-input" style={{ paddingLeft: 40, paddingRight: 44 }} placeholder="••••••••" value={form.password} onChange={handleChange('password')} />
-                <button type="button" onClick={() => setShowPw((p) => !p)} style={{ position: 'absolute', right: 12, top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-muted)', display: 'flex', padding: 2 }}>
-                  {showPw ? <RiEyeOffLine size={16} /> : <RiEyeLine size={16} />}
+                <RiLockLine aria-hidden="true" size={16} style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
+                <input id="reg-password" name="password" type={showPw ? 'text' : 'password'} autoComplete="new-password" className="form-input" style={{ paddingLeft: 40, paddingRight: 44 }} placeholder="••••••••" value={form.password} aria-invalid={!!errors.password} aria-describedby={errors.password ? 'reg-password-error' : undefined} onChange={handleChange('password')} />
+                <button type="button" onClick={() => setShowPw((p) => !p)} aria-label={showPw ? 'Hide password' : 'Show password'} aria-pressed={showPw} style={{ position: 'absolute', right: 12, top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-muted)', display: 'flex', padding: 2 }}>
+                  {showPw ? <RiEyeOffLine aria-hidden="true" size={16} /> : <RiEyeLine aria-hidden="true" size={16} />}
                 </button>
               </div>
               {form.password && (
@@ -123,17 +123,17 @@ export default function Register() {
                   <span style={{ fontSize: '0.72rem', color: strengthColor, fontWeight: 600, marginLeft: 6 }}>{strengthLabel}</span>
                 </div>
               )}
-              {errors.password && <span style={{ color: 'var(--color-error)', fontSize: '0.78rem' }}>{errors.password}</span>}
+              {errors.password && <span id="reg-password-error" role="alert" style={{ color: 'var(--color-error)', fontSize: '0.78rem' }}>{errors.password}</span>}
             </div>
 
             {/* Confirm */}
             <div className="form-group">
-              <label className="form-label">Confirm Password</label>
+              <label className="form-label" htmlFor="reg-confirm">Confirm Password</label>
               <div style={{ position: 'relative' }}>
-                <RiLockLine size={16} style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
-                <input type="password" className="form-input" style={{ paddingLeft: 40 }} placeholder="••••••••" value={form.confirm_password} onChange={handleChange('confirm_password')} />
+                <RiLockLine aria-hidden="true" size={16} style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
+                <input id="reg-confirm" name="confirm_password" type="password" autoComplete="new-password" className="form-input" style={{ paddingLeft: 40 }} placeholder="••••••••" value={form.confirm_password} aria-invalid={!!errors.confirm_password} aria-describedby={errors.confirm_password ? 'reg-confirm-error' : undefined} onChange={handleChange('confirm_password')} />
               </div>
-              {errors.confirm_password && <span style={{ color: 'var(--color-error)', fontSize: '0.78rem' }}>{errors.confirm_password}</span>}
+              {errors.confirm_password && <span id="reg-confirm-error" role="alert" style={{ color: 'var(--color-error)', fontSize: '0.78rem' }}>{errors.confirm_password}</span>}
             </div>
 
             <button type="submit" className="btn btn-primary" disabled={loading} style={{ width: '100%', justifyContent: 'center', padding: '13px', fontSize: '0.95rem', marginTop: 4 }}>

@@ -39,6 +39,7 @@ export default function Navbar({ onMenuClick }) {
     }}>
       <button
         onClick={onMenuClick}
+        aria-label="Toggle navigation menu"
         style={{
           background: 'var(--bg-card)', border: '1px solid var(--border-color)',
           borderRadius: 'var(--radius-sm)', padding: '8px',
@@ -78,7 +79,7 @@ export default function Navbar({ onMenuClick }) {
         </button>
 
         {/* Notification bell */}
-        <button style={{
+        <button aria-label="Notifications" style={{
           background: 'var(--bg-card)', border: '1px solid var(--border-color)',
           borderRadius: '50%', width: 38, height: 38,
           cursor: 'pointer', color: 'var(--text-secondary)',
