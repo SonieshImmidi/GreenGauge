@@ -8,6 +8,7 @@ import {
 import { RiLeafLine, RiArrowRightLine, RiDownloadLine, RiFireLine, RiTrophyLine, RiBarChartLine, RiAddLine } from 'react-icons/ri';
 import { carbonApi } from '../services/api';
 import { setReport } from '../store/carbonSlice';
+import { EmojiIcon } from '../utils/icons';
 
 const PIE_COLORS = { transportation: '#00ff88', energy: '#00d4ff', food: '#ffb300', waste: '#ff5252' };
 
@@ -132,7 +133,7 @@ export default function Dashboard() {
       {/* Welcome */}
       <div style={{ marginBottom: 28 }}>
         <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--text-primary)', marginBottom: 4 }}>
-          Good day, {user?.name?.split(' ')[0] || 'Eco Warrior'} 🌿
+          Good day, {user?.name?.split(' ')[0] || 'Eco Warrior'} <EmojiIcon emoji="🌿" size={22} aria-hidden="true" />
         </h2>
         <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>
           {hasData ? 'Here\'s your environmental impact summary.' : 'Start by calculating your carbon footprint below!'}
@@ -148,7 +149,7 @@ export default function Dashboard() {
           marginBottom: 28,
           display: 'flex', alignItems: 'center', gap: 16, flexWrap: 'wrap',
         }}>
-          <span style={{ fontSize: '1.5rem' }}>🌱</span>
+          <span style={{ fontSize: '1.5rem' }}><EmojiIcon emoji="🌱" size={24} aria-hidden="true" /></span>
           <div style={{ flex: 1 }}>
             <div style={{ fontWeight: 700, color: 'var(--text-primary)', marginBottom: 2 }}>Welcome! Let's get started.</div>
             <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>The charts below show demo data. Calculate your first footprint to see your real impact.</div>
@@ -164,7 +165,7 @@ export default function Dashboard() {
         <StatCard title="Total Emissions" value={report?.total_emission_kg ?? 0} unit="kg CO₂" icon={RiFireLine} color="#ff5252" sub="All time tracked" />
         <StatCard title="This Month" value={report?.monthly_emission_kg ?? 0} unit="kg CO₂" icon={RiBarChartLine} color="#00d4ff" sub={`Daily avg: ${(report?.daily_average_kg ?? 0).toFixed(1)} kg`} />
         <StatCard title="Eco Score" value={report?.eco_score ?? 75} unit="/100" icon={RiLeafLine} color="#00ff88" sub="Based on your activity" />
-        <StatCard title="Rank" value={report?.sustainability_rank ?? '🌱 Eco Warrior'} unit="" icon={RiTrophyLine} color="#ffb300" sub="Keep it up!" />
+        <StatCard title="Rank" value={report?.sustainability_rank ?? <><EmojiIcon emoji="🌱" size={22} aria-hidden="true" /> Eco Warrior</>} unit="" icon={RiTrophyLine} color="#ffb300" sub="Keep it up!" />
       </div>
 
       {/* Charts Row 1 */}
@@ -251,10 +252,10 @@ export default function Dashboard() {
               <h3 style={{ fontSize: '1rem', fontWeight: 700, marginBottom: 8 }}>Your Eco Score</h3>
               <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', lineHeight: 1.6 }}>
                 {(report?.eco_score ?? 75) >= 70
-                  ? '🌟 Excellent! You\'re a carbon champion.'
+                  ? <><EmojiIcon emoji="🌟" size={16} aria-hidden="true" /> Excellent! You're a carbon champion.</>
                   : (report?.eco_score ?? 75) >= 40
-                  ? '🌱 Good progress! Small changes make a big impact.'
-                  : '⚡ Let\'s work on reducing your footprint together.'}
+                  ? <><EmojiIcon emoji="🌱" size={16} aria-hidden="true" /> Good progress! Small changes make a big impact.</>
+                  : <><EmojiIcon emoji="⚡" size={16} aria-hidden="true" /> Let's work on reducing your footprint together.</>}
               </p>
             </div>
           </div>
@@ -279,7 +280,7 @@ export default function Dashboard() {
                   onMouseEnter={(e) => { e.currentTarget.style.borderColor = action.color; e.currentTarget.style.color = action.color; }}
                   onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--border-color)'; e.currentTarget.style.color = 'var(--text-secondary)'; }}
                 >
-                  <span>{action.icon}</span>
+                  <span><EmojiIcon emoji={action.icon} size={16} aria-hidden="true" /></span>
                   {action.label}
                   <RiArrowRightLine size={14} style={{ marginLeft: 'auto' }} />
                 </Link>

@@ -8,6 +8,7 @@ import {
 import { updateUser } from '../store/authSlice';
 import { toggleTheme } from '../store/themeSlice';
 import { userApi } from '../services/api';
+import { EmojiIcon } from '../utils/icons';
 
 function Section({ title, icon: Icon, children }) {
   return (
@@ -40,7 +41,7 @@ export default function Profile() {
     try {
       const { data } = await userApi.updateProfile(profile);
       dispatch(updateUser(data));
-      toast.success('Profile updated! ✅');
+      toast.success('Profile updated!');
     } catch (err) {
       toast.error(err.response?.data?.detail || 'Failed to update profile.');
     } finally {
@@ -59,7 +60,7 @@ export default function Profile() {
     setPasswordLoading(true);
     try {
       await userApi.changePassword(passwords);
-      toast.success('Password changed successfully! 🔒');
+      toast.success('Password changed successfully!');
       setPasswords({ current_password: '', new_password: '', confirm_password: '' });
     } catch (err) {
       toast.error(err.response?.data?.detail || 'Failed to change password.');
@@ -73,7 +74,7 @@ export default function Profile() {
     try {
       await userApi.updateProfile({ notifications_enabled: newVal });
       dispatch(updateUser({ notifications_enabled: newVal }));
-      toast.success(newVal ? 'Notifications enabled 🔔' : 'Notifications disabled 🔕');
+      toast.success(newVal ? 'Notifications enabled' : 'Notifications disabled');
     } catch {}
   };
 
@@ -98,8 +99,8 @@ export default function Profile() {
           <h2 style={{ fontSize: '1.3rem', fontWeight: 800, color: 'var(--text-primary)', marginBottom: 3 }}>{user?.name}</h2>
           <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: 8 }}>{user?.email}</p>
           <div style={{ display: 'flex', gap: 8 }}>
-            <span className="badge badge-green">🌿 Active Member</span>
-            <span className="badge badge-blue">⚡ Eco Tracker</span>
+            <span className="badge badge-green"><EmojiIcon emoji="🌿" size={14} aria-hidden="true" /> Active Member</span>
+            <span className="badge badge-blue"><EmojiIcon emoji="⚡" size={14} aria-hidden="true" /> Eco Tracker</span>
           </div>
         </div>
       </div>
@@ -135,7 +136,7 @@ export default function Profile() {
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12 }}>
           <div>
             <div style={{ fontWeight: 600, color: 'var(--text-primary)', marginBottom: 4 }}>
-              {theme === 'dark' ? '🌙 Dark Mode' : '☀️ Light Mode'}
+              {theme === 'dark' ? <><EmojiIcon emoji="🌙" size={16} aria-hidden="true" /> Dark Mode</> : <><EmojiIcon emoji="☀️" size={16} aria-hidden="true" /> Light Mode</>}
             </div>
             <p style={{ fontSize: '0.84rem', color: 'var(--text-muted)', margin: 0 }}>
               {theme === 'dark' ? 'Easy on the eyes in low-light environments' : 'Clean look for bright environments'}
@@ -174,9 +175,9 @@ export default function Profile() {
                 {['#ff5252', '#ffb300', '#00ff88'].map((c) => <div key={c} style={{ width: 8, height: 8, borderRadius: '50%', background: c }} />)}
               </div>
               <div style={{ fontSize: '0.75rem', fontWeight: 600, color: t === 'dark' ? '#e8fff2' : '#0d1f14' }}>
-                {t === 'dark' ? '🌙 Dark Mode' : '☀️ Light Mode'}
+                {t === 'dark' ? <><EmojiIcon emoji="🌙" size={12} aria-hidden="true" /> Dark Mode</> : <><EmojiIcon emoji="☀️" size={12} aria-hidden="true" /> Light Mode</>}
               </div>
-              {theme === t && <div style={{ fontSize: '0.68rem', color: 'var(--color-primary)', marginTop: 4 }}>✓ Active</div>}
+              {theme === t && <div style={{ fontSize: '0.68rem', color: 'var(--color-primary)', marginTop: 4 }}><EmojiIcon emoji="✓" size={11} aria-hidden="true" /> Active</div>}
             </div>
           ))}
         </div>
@@ -242,13 +243,13 @@ export default function Profile() {
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
           {[
             { label: 'Member Since', value: user?.created_at ? new Date(user.created_at).toLocaleDateString() : 'N/A' },
-            { label: 'Account Status', value: '✅ Active' },
-            { label: 'Theme', value: theme === 'dark' ? '🌙 Dark' : '☀️ Light' },
-            { label: 'Plan', value: '🌿 Free Tier' },
-          ].map(({ label, value }) => (
+            { label: 'Account Status', icon: '✅', value: 'Active' },
+            { label: 'Theme', icon: theme === 'dark' ? '🌙' : '☀️', value: theme === 'dark' ? 'Dark' : 'Light' },
+            { label: 'Plan', icon: '🌿', value: 'Free Tier' },
+          ].map(({ label, icon, value }) => (
             <div key={label}>
               <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: 3, textTransform: 'uppercase', letterSpacing: '0.04em' }}>{label}</div>
-              <div style={{ fontSize: '0.9rem', fontWeight: 600, color: 'var(--text-primary)' }}>{value}</div>
+              <div style={{ fontSize: '0.9rem', fontWeight: 600, color: 'var(--text-primary)' }}>{icon && <><EmojiIcon emoji={icon} size={14} aria-hidden="true" /> </>}{value}</div>
             </div>
           ))}
         </div>

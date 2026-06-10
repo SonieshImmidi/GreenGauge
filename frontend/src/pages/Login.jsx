@@ -5,6 +5,7 @@ import toast from 'react-hot-toast';
 import { RiLeafLine, RiMailLine, RiLockLine, RiEyeLine, RiEyeOffLine } from 'react-icons/ri';
 import { setCredentials } from '../store/authSlice';
 import { authApi, userApi } from '../services/api';
+import { EmojiIcon } from '../utils/icons';
 
 export default function Login() {
   const dispatch = useDispatch();
@@ -34,7 +35,7 @@ export default function Login() {
       localStorage.setItem('access_token', tempStorage);
       const { data: user } = await userApi.getProfile();
       dispatch(setCredentials({ ...tokens, user }));
-      toast.success(`Welcome back, ${user.name}! 🌿`);
+      toast.success(`Welcome back, ${user.name}!`);
       navigate('/dashboard');
     } catch (err) {
       let msg = 'Login failed. Please try again.';
@@ -148,12 +149,12 @@ export default function Login() {
               fontSize: '0.8rem',
               color: 'var(--text-muted)',
             }}>
-              💡 <strong style={{ color: 'var(--color-primary)' }}>Demo:</strong> Register a new account to try the full app!
+              <EmojiIcon emoji="💡" size={14} aria-hidden="true" style={{ verticalAlign: 'middle' }} /> <strong style={{ color: 'var(--color-primary)' }}>Demo:</strong> Register a new account to try the full app!
             </div>
 
             <button type="submit" className="btn btn-primary" disabled={loading} style={{ width: '100%', justifyContent: 'center', padding: '13px', fontSize: '0.95rem' }}>
               {loading ? <span className="spinner" /> : null}
-              {loading ? 'Signing In…' : 'Sign In 🌿'}
+              {loading ? 'Signing In…' : <>Sign In <EmojiIcon emoji="🌿" size={16} aria-hidden="true" /></>}
             </button>
           </form>
 

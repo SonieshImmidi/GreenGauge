@@ -4,6 +4,7 @@ import toast from 'react-hot-toast';
 import { RiFilterLine, RiDownloadLine, RiRefreshLine } from 'react-icons/ri';
 import { carbonApi } from '../services/api';
 import { setHistory } from '../store/carbonSlice';
+import { EmojiIcon } from '../utils/icons';
 
 const CATEGORY_COLORS = {
   transportation: '#00ff88', energy: '#00d4ff', food: '#ffb300', waste: '#ff5252',
@@ -71,10 +72,10 @@ export default function History() {
             <label className="form-label" htmlFor="hist-category">Category</label>
             <select id="hist-category" name="category" className="form-select" value={category} onChange={(e) => setCategory(e.target.value)}>
               <option value="">All Categories</option>
-              <option value="transportation">🚗 Transportation</option>
-              <option value="energy">⚡ Energy</option>
-              <option value="food">🍽️ Food</option>
-              <option value="waste">♻️ Waste</option>
+              <option value="transportation">Transportation</option>
+              <option value="energy">Energy</option>
+              <option value="food">Food</option>
+              <option value="waste">Waste</option>
             </select>
           </div>
           <div className="form-group" style={{ minWidth: 160 }}>
@@ -106,7 +107,7 @@ export default function History() {
             const total = catRecords.reduce((s, r) => s + r.emission_value, 0);
             return (
               <div key={cat} className="glass-card" style={{ padding: '16px 18px', borderColor: `${CATEGORY_COLORS[cat]}30` }}>
-                <div style={{ fontSize: '1.2rem', marginBottom: 6 }}>{CATEGORY_ICONS[cat]}</div>
+                <div style={{ fontSize: '1.2rem', marginBottom: 6 }}><EmojiIcon emoji={CATEGORY_ICONS[cat]} size={20} aria-hidden="true" /></div>
                 <div style={{ fontSize: '1.2rem', fontWeight: 800, color: CATEGORY_COLORS[cat], fontFamily: 'var(--font-display)' }}>
                   {total.toFixed(2)}
                   <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)', fontWeight: 400, marginLeft: 3 }}>kg</span>
@@ -143,7 +144,7 @@ export default function History() {
               ) : history.length === 0 ? (
                 <tr>
                   <td colSpan={5} style={{ textAlign: 'center', padding: '48px', color: 'var(--text-muted)' }}>
-                    <div style={{ fontSize: '2.5rem', marginBottom: 12 }}>📊</div>
+                    <div style={{ fontSize: '2.5rem', marginBottom: 12 }}><EmojiIcon emoji="📊" size={40} aria-hidden="true" /></div>
                     <div style={{ fontWeight: 600, color: 'var(--text-secondary)', marginBottom: 6 }}>No records found</div>
                     <div style={{ fontSize: '0.85rem' }}>Start by calculating your carbon footprint.</div>
                   </td>
@@ -166,7 +167,7 @@ export default function History() {
                           background: `${color}15`, color, border: `1px solid ${color}30`,
                           fontSize: '0.78rem', fontWeight: 600, textTransform: 'capitalize',
                         }}>
-                          {CATEGORY_ICONS[record.category]} {record.category}
+                          <EmojiIcon emoji={CATEGORY_ICONS[record.category]} size={14} aria-hidden="true" /> {record.category}
                         </span>
                       </td>
                       <td style={{ color: 'var(--text-secondary)', fontSize: '0.85rem' }}>{record.sub_category || '—'}</td>

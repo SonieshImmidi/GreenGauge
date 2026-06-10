@@ -4,25 +4,26 @@ import toast from 'react-hot-toast';
 import { RiCarLine, RiBus2Line, RiFlightTakeoffLine, RiLightbulbFlashLine, RiLeafLine, RiRestaurantLine, RiRecycleLine, RiCheckLine, RiArrowLeftLine, RiArrowRightLine } from 'react-icons/ri';
 import { carbonApi } from '../services/api';
 import { setLastCalculation } from '../store/carbonSlice';
+import { EmojiIcon } from '../utils/icons';
 
 const STEPS = ['Transportation', 'Energy', 'Food & Diet', 'Waste', 'Results'];
 
 const VEHICLE_TYPES = [
-  { value: 'car_petrol', label: '🚗 Petrol Car', factor: 0.21 },
-  { value: 'car_diesel', label: '🚙 Diesel Car', factor: 0.17 },
-  { value: 'car_electric', label: '⚡ Electric Car', factor: 0.05 },
-  { value: 'motorbike', label: '🏍️ Motorbike', factor: 0.11 },
-  { value: 'bus', label: '🚌 Bus', factor: 0.09 },
-  { value: 'train', label: '🚆 Train', factor: 0.04 },
-  { value: 'flight_domestic', label: '✈️ Domestic Flight', factor: 0.26 },
-  { value: 'flight_international', label: '🌏 International Flight', factor: 0.20 },
+  { value: 'car_petrol', label: 'Petrol Car', factor: 0.21 },
+  { value: 'car_diesel', label: 'Diesel Car', factor: 0.17 },
+  { value: 'car_electric', label: 'Electric Car', factor: 0.05 },
+  { value: 'motorbike', label: 'Motorbike', factor: 0.11 },
+  { value: 'bus', label: 'Bus', factor: 0.09 },
+  { value: 'train', label: 'Train', factor: 0.04 },
+  { value: 'flight_domestic', label: 'Domestic Flight', factor: 0.26 },
+  { value: 'flight_international', label: 'International Flight', factor: 0.20 },
 ];
 
 const DIET_TYPES = [
-  { value: 'vegan', label: '🌱 Vegan', desc: '~1.5 kg CO₂/day', color: '#00ff88' },
-  { value: 'vegetarian', label: '🥗 Vegetarian', desc: '~1.7 kg CO₂/day', color: '#3ddc84' },
-  { value: 'mixed', label: '🍽️ Mixed Diet', desc: '~2.5 kg CO₂/day', color: '#ffb300' },
-  { value: 'high_meat', label: '🥩 High Meat', desc: '~3.3 kg CO₂/day', color: '#ff5252' },
+  { value: 'vegan', label: 'Vegan', icon: '🌱', desc: '~1.5 kg CO₂/day', color: '#00ff88' },
+  { value: 'vegetarian', label: 'Vegetarian', icon: '🥗', desc: '~1.7 kg CO₂/day', color: '#3ddc84' },
+  { value: 'mixed', label: 'Mixed Diet', icon: '🍽️', desc: '~2.5 kg CO₂/day', color: '#ffb300' },
+  { value: 'high_meat', label: 'High Meat', icon: '🥩', desc: '~3.3 kg CO₂/day', color: '#ff5252' },
 ];
 
 function StepIndicator({ step, total }) {
@@ -63,7 +64,7 @@ function ResultCard({ result }) {
       {/* Score */}
       <div className="glass-card" style={{ padding: '32px', textAlign: 'center', marginBottom: 20, background: `linear-gradient(135deg, ${impactColor}08, transparent)`, borderColor: `${impactColor}30` }}>
         <div style={{ fontSize: '3.5rem', marginBottom: 8 }}>
-          {eco_score >= 70 ? '🌿' : eco_score >= 40 ? '🌱' : '⚠️'}
+          <EmojiIcon emoji={eco_score >= 70 ? '🌿' : eco_score >= 40 ? '🌱' : '⚠️'} size={56} aria-hidden="true" />
         </div>
         <div style={{ fontSize: '3rem', fontWeight: 900, color: impactColor, fontFamily: 'var(--font-display)', lineHeight: 1 }}>
           {total_emission_kg.toFixed(2)}
@@ -85,7 +86,7 @@ function ResultCard({ result }) {
           { icon: '🚗', value: cars_equivalent, label: 'km equivalent by car', color: '#ff5252' },
         ].map((item, i) => (
           <div key={i} className="glass-card" style={{ padding: '20px', textAlign: 'center' }}>
-            <div style={{ fontSize: '2rem', marginBottom: 6 }}>{item.icon}</div>
+            <div style={{ fontSize: '2rem', marginBottom: 6 }}><EmojiIcon emoji={item.icon} size={32} aria-hidden="true" /></div>
             <div style={{ fontSize: '1.6rem', fontWeight: 800, color: item.color, fontFamily: 'var(--font-display)' }}>{item.value.toFixed(1)}</div>
             <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)', marginTop: 4 }}>{item.label}</div>
           </div>
@@ -116,7 +117,7 @@ function ResultCard({ result }) {
 
       {/* Suggestions */}
       <div className="glass-card" style={{ padding: '24px' }}>
-        <h3 style={{ fontSize: '0.9rem', fontWeight: 700, marginBottom: 16, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>💡 Personalized Suggestions</h3>
+        <h3 style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: '0.9rem', fontWeight: 700, marginBottom: 16, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.06em' }}><EmojiIcon emoji="💡" size={16} aria-hidden="true" /> Personalized Suggestions</h3>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
           {suggestions.map((s, i) => (
             <div key={i} style={{ display: 'flex', gap: 10, padding: '12px', background: 'rgba(0,255,136,0.05)', borderRadius: 'var(--radius-md)', border: '1px solid rgba(0,255,136,0.1)' }}>
@@ -158,7 +159,7 @@ export default function Calculator() {
       setResult(data);
       dispatch(setLastCalculation(data));
       setStep(4);
-      toast.success('Carbon footprint calculated! 🌍');
+      toast.success('Carbon footprint calculated!');
     } catch (err) {
       toast.error(err.response?.data?.detail || 'Calculation failed. Please try again.');
     } finally {
@@ -176,7 +177,7 @@ export default function Calculator() {
         {step < 4 && (
           <div style={{ textAlign: 'center', marginBottom: 32 }}>
             <div style={{ fontSize: '2rem', marginBottom: 8 }}>
-              {['🚗', '⚡', '🍽️', '♻️'][step]}
+              <EmojiIcon emoji={['🚗', '⚡', '🍽️', '♻️'][step]} size={32} aria-hidden="true" />
             </div>
             <h2 style={{ fontSize: '1.4rem', fontWeight: 800, marginBottom: 6 }}>{STEPS[step]}</h2>
             <p style={{ color: 'var(--text-muted)', fontSize: '0.88rem' }}>
@@ -201,7 +202,7 @@ export default function Calculator() {
                   <input id={`trip-distance-${i}`} type="number" min="0" className="form-input" placeholder="e.g. 25" value={trip.distance_km} onChange={(e) => updateTrip(i, 'distance_km', e.target.value)} />
                 </div>
                 {transport.length > 1 && (
-                  <button onClick={() => removeTrip(i)} aria-label={`Remove trip ${i + 1}`} style={{ background: 'rgba(255,82,82,0.1)', border: '1px solid rgba(255,82,82,0.2)', borderRadius: 'var(--radius-md)', padding: '10px 12px', cursor: 'pointer', color: '#ff5252', height: 42 }}>✕</button>
+                  <button onClick={() => removeTrip(i)} aria-label={`Remove trip ${i + 1}`} style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(255,82,82,0.1)', border: '1px solid rgba(255,82,82,0.2)', borderRadius: 'var(--radius-md)', padding: '10px 12px', cursor: 'pointer', color: '#ff5252', height: 42 }}><EmojiIcon emoji="✕" size={16} aria-hidden="true" /></button>
                 )}
               </div>
             ))}
@@ -213,13 +214,13 @@ export default function Calculator() {
         {step === 1 && (
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
             {[
-              { key: 'electricity_kwh', label: '⚡ Electricity', unit: 'kWh' },
-              { key: 'lpg_kg', label: '🔥 LPG Gas', unit: 'kg' },
-              { key: 'natural_gas_m3', label: '🏠 Natural Gas', unit: 'm³' },
-              { key: 'renewable_kwh', label: '☀️ Renewable', unit: 'kWh' },
-            ].map(({ key, label, unit }) => (
+              { key: 'electricity_kwh', label: 'Electricity', icon: '⚡', unit: 'kWh' },
+              { key: 'lpg_kg', label: 'LPG Gas', icon: '🔥', unit: 'kg' },
+              { key: 'natural_gas_m3', label: 'Natural Gas', icon: '🏠', unit: 'm³' },
+              { key: 'renewable_kwh', label: 'Renewable', icon: '☀️', unit: 'kWh' },
+            ].map(({ key, label, icon, unit }) => (
               <div key={key} className="form-group">
-                <label className="form-label" htmlFor={`energy-${key}`}>{label} ({unit})</label>
+                <label className="form-label" htmlFor={`energy-${key}`} style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}><EmojiIcon emoji={icon} size={16} aria-hidden="true" /> {label} ({unit})</label>
                 <input id={`energy-${key}`} name={key} type="number" min="0" className="form-input" placeholder="0" value={energy[key]} onChange={(e) => setEnergy((p) => ({ ...p, [key]: e.target.value }))} />
               </div>
             ))}
@@ -244,8 +245,8 @@ export default function Calculator() {
                     boxShadow: food.diet_type === diet.value ? `0 0 15px ${diet.color}30` : 'none',
                   }}
                 >
-                  <div style={{ fontSize: '1.4rem', marginBottom: 6 }}>{diet.label.split(' ')[0]}</div>
-                  <div style={{ fontSize: '0.88rem', fontWeight: 600, color: food.diet_type === diet.value ? diet.color : 'var(--text-primary)' }}>{diet.label.slice(diet.label.indexOf(' ') + 1)}</div>
+                  <div style={{ fontSize: '1.4rem', marginBottom: 6 }}><EmojiIcon emoji={diet.icon} size={22} aria-hidden="true" /></div>
+                  <div style={{ fontSize: '0.88rem', fontWeight: 600, color: food.diet_type === diet.value ? diet.color : 'var(--text-primary)' }}>{diet.label}</div>
                   <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: 3 }}>{diet.desc}</div>
                 </button>
               ))}
@@ -261,13 +262,13 @@ export default function Calculator() {
         {step === 3 && (
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
             {[
-              { key: 'general_kg', label: '🗑️ General Waste', unit: 'kg', desc: '0.5 kg CO₂/kg' },
-              { key: 'recycled_kg', label: '♻️ Recycled', unit: 'kg', desc: '0.1 kg CO₂/kg' },
-              { key: 'composted_kg', label: '🌿 Composted', unit: 'kg', desc: '0.05 kg CO₂/kg' },
-              { key: 'landfill_kg', label: '⚠️ Landfill', unit: 'kg', desc: '0.8 kg CO₂/kg' },
-            ].map(({ key, label, unit, desc }) => (
+              { key: 'general_kg', label: 'General Waste', icon: '🗑️', unit: 'kg', desc: '0.5 kg CO₂/kg' },
+              { key: 'recycled_kg', label: 'Recycled', icon: '♻️', unit: 'kg', desc: '0.1 kg CO₂/kg' },
+              { key: 'composted_kg', label: 'Composted', icon: '🌿', unit: 'kg', desc: '0.05 kg CO₂/kg' },
+              { key: 'landfill_kg', label: 'Landfill', icon: '⚠️', unit: 'kg', desc: '0.8 kg CO₂/kg' },
+            ].map(({ key, label, icon, unit, desc }) => (
               <div key={key} className="form-group">
-                <label className="form-label" htmlFor={`waste-${key}`}>{label} ({unit})</label>
+                <label className="form-label" htmlFor={`waste-${key}`} style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}><EmojiIcon emoji={icon} size={16} aria-hidden="true" /> {label} ({unit})</label>
                 <input id={`waste-${key}`} name={key} type="number" min="0" className="form-input" placeholder="0" value={waste[key]} onChange={(e) => setWaste((p) => ({ ...p, [key]: e.target.value }))} />
                 <span style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>{desc}</span>
               </div>
@@ -298,7 +299,7 @@ export default function Calculator() {
           {step === 3 && (
             <button className="btn btn-primary" onClick={handleCalculate} disabled={loading}>
               {loading ? <span className="spinner" /> : null}
-              {loading ? 'Calculating…' : '🌍 Calculate Footprint'}
+              {loading ? 'Calculating…' : <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}><EmojiIcon emoji="🌍" size={16} aria-hidden="true" /> Calculate Footprint</span>}
             </button>
           )}
         </div>

@@ -8,6 +8,7 @@ import {
   RiSunLine, RiMoonLine
 } from 'react-icons/ri';
 import { toggleTheme } from '../store/themeSlice';
+import { EmojiIcon } from '../utils/icons';
 
 // Animated Counter
 function AnimatedCounter({ end, suffix = '', duration = 2000 }) {
@@ -216,8 +217,8 @@ export default function Landing() {
 
         <div className="container" style={{ position: 'relative', zIndex: 1, padding: '100px 24px 60px', textAlign: 'center' }}>
           <div className="animate-fade-up" style={{ marginBottom: 20 }}>
-            <span className="badge badge-green" style={{ fontSize: '0.8rem', padding: '6px 14px' }}>
-              🌍 Join 15,000+ Eco Warriors
+            <span className="badge badge-green" style={{ fontSize: '0.8rem', padding: '6px 14px', display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+              <EmojiIcon emoji="🌍" size={14} aria-hidden="true" /> Join 15,000+ Eco Warriors
             </span>
           </div>
 
@@ -270,7 +271,7 @@ export default function Landing() {
               boxShadow: 'var(--color-primary-glow)',
               animation: 'pulse-glow 3s ease-in-out infinite',
             }}>
-              <span style={{ fontSize: '5rem' }}>🌍</span>
+              <EmojiIcon emoji="🌍" size={80} aria-hidden="true" />
             </div>
           </div>
         </div>
@@ -381,7 +382,7 @@ export default function Landing() {
               Join thousands of eco-conscious individuals tracking and reducing their carbon footprint today.
             </p>
             <Link to="/register" className="btn btn-primary btn-lg">
-              🌱 Start Your Green Journey <RiArrowRightLine />
+              <EmojiIcon emoji="🌱" size={18} aria-hidden="true" /> Start Your Green Journey <RiArrowRightLine />
             </Link>
           </div>
         </div>
@@ -417,7 +418,7 @@ export default function Landing() {
               </button>
             ))}
           </div>
-          <p>© 2024 GreenGauge. Built for a sustainable future. 🌿</p>
+          <p style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>© 2024 GreenGauge. Built for a sustainable future. <EmojiIcon emoji="🌿" size={14} aria-hidden="true" /></p>
         </div>
       </footer>
     </div>

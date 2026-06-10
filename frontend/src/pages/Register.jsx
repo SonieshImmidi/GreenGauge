@@ -5,6 +5,7 @@ import toast from 'react-hot-toast';
 import { RiLeafLine, RiMailLine, RiLockLine, RiUserLine, RiEyeLine, RiEyeOffLine } from 'react-icons/ri';
 import { setCredentials } from '../store/authSlice';
 import { authApi, userApi } from '../services/api';
+import { EmojiIcon } from '../utils/icons';
 
 export default function Register() {
   const dispatch = useDispatch();
@@ -43,7 +44,7 @@ export default function Register() {
       localStorage.setItem('access_token', tokens.access_token);
       const { data: user } = await userApi.getProfile();
       dispatch(setCredentials({ ...tokens, user }));
-      toast.success(`Welcome to GreenGauge, ${user.name}! 🌱`);
+      toast.success(`Welcome to GreenGauge, ${user.name}!`);
       navigate('/dashboard');
     } catch (err) {
       let msg = 'Registration failed. Please try again.';
@@ -138,7 +139,7 @@ export default function Register() {
 
             <button type="submit" className="btn btn-primary" disabled={loading} style={{ width: '100%', justifyContent: 'center', padding: '13px', fontSize: '0.95rem', marginTop: 4 }}>
               {loading ? <span className="spinner" /> : null}
-              {loading ? 'Creating Account…' : '🌿 Create Account'}
+              {loading ? 'Creating Account…' : <><EmojiIcon emoji="🌿" size={16} aria-hidden="true" /> Create Account</>}
             </button>
           </form>
 

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import toast from 'react-hot-toast';
 import { recommendationsApi } from '../services/api';
 import { setRecommendations } from '../store/carbonSlice';
+import { EmojiIcon } from '../utils/icons';
 
 const CAT_COLORS = {
   transportation: '#00ff88', energy: '#00d4ff', food: '#ffb300', waste: '#ff5252', lifestyle: '#c084fc',
@@ -40,7 +41,7 @@ function RecommendationCard({ rec, index }) {
           display: 'flex', alignItems: 'center', justifyContent: 'center',
           fontSize: '1.4rem', flexShrink: 0,
         }}>
-          {rec.icon || CAT_ICONS[cat]}
+          <EmojiIcon emoji={rec.icon || CAT_ICONS[cat]} size={22} aria-hidden="true" />
         </div>
 
         <div style={{ flex: 1 }}>
@@ -55,7 +56,7 @@ function RecommendationCard({ rec, index }) {
                 -{rec.impact}% CO₂
               </span>
               {rec.urgency === 'High Priority' && (
-                <span className="badge badge-red" style={{ fontSize: '0.68rem' }}>🔴 High Priority</span>
+                <span className="badge badge-red" style={{ fontSize: '0.68rem' }}><EmojiIcon emoji="🔴" size={11} aria-hidden="true" /> High Priority</span>
               )}
             </div>
           </div>
@@ -134,7 +135,7 @@ export default function Recommendations() {
           borderRadius: 'var(--radius-lg)', padding: '18px 22px', marginBottom: 24,
           display: 'flex', alignItems: 'center', gap: 14,
         }}>
-          <span style={{ fontSize: '1.5rem' }}>⚡</span>
+          <span style={{ fontSize: '1.5rem' }}><EmojiIcon emoji="⚡" size={24} aria-hidden="true" /></span>
           <div>
             <div style={{ fontWeight: 700, color: 'var(--text-primary)', marginBottom: 2 }}>
               Your Top Emission Source: <span style={{ color: '#ff5252', textTransform: 'capitalize' }}>{topCat}</span>
@@ -161,7 +162,7 @@ export default function Recommendations() {
               fontFamily: 'var(--font-sans)',
             }}
           >
-            {CAT_ICONS[cat] || '🌍'} {cat}
+            <EmojiIcon emoji={CAT_ICONS[cat] || '🌍'} size={13} aria-hidden="true" /> {cat}
           </button>
         ))}
       </div>
@@ -185,7 +186,7 @@ export default function Recommendations() {
       )}
 
       <p style={{ textAlign: 'center', marginTop: 24, fontSize: '0.8rem', color: 'var(--text-muted)' }}>
-        💡 Click any card to see impact potential details
+        <EmojiIcon emoji="💡" size={13} aria-hidden="true" /> Click any card to see impact potential details
       </p>
     </div>
   );
