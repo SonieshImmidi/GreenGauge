@@ -4,12 +4,8 @@ import { useDispatch } from 'react-redux';
 import toast from 'react-hot-toast';
 import { RiLeafLine, RiMailLine, RiLockLine, RiEyeLine, RiEyeOffLine } from 'react-icons/ri';
 import { setCredentials } from '../store/authSlice';
-<<<<<<< HEAD
-import { authApi, userApi } from '../services/api';
-import { EmojiIcon } from '../utils/icons';
-=======
 import { authApi, userApi, carbonApi } from '../services/api';
->>>>>>> 542fd99 (Upadted)
+import { EmojiIcon } from '../utils/icons';
 
 export default function Login() {
   const dispatch = useDispatch();
@@ -38,11 +34,7 @@ export default function Login() {
       localStorage.setItem('access_token', tempStorage);
       const { data: user } = await userApi.getProfile();
       dispatch(setCredentials({ ...tokens, user }));
-<<<<<<< HEAD
       toast.success(`Welcome back, ${user.name}!`);
-      navigate('/dashboard');
-=======
-      toast.success(`Welcome back, ${user.name}! 🌿`);
 
       // ── Check for pending carbon entry from landing calculator ──
       const pending = sessionStorage.getItem('pendingCarbonEntry');
@@ -74,7 +66,6 @@ export default function Login() {
       } else {
         navigate('/dashboard');
       }
->>>>>>> 542fd99 (Upadted)
     } catch (err) {
       let msg = 'Login failed. Please try again.';
       if (err.response?.data?.detail) {

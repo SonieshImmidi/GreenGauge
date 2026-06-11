@@ -4,12 +4,8 @@ import { useDispatch } from 'react-redux';
 import toast from 'react-hot-toast';
 import { RiLeafLine, RiMailLine, RiLockLine, RiUserLine, RiEyeLine, RiEyeOffLine } from 'react-icons/ri';
 import { setCredentials } from '../store/authSlice';
-<<<<<<< HEAD
-import { authApi, userApi } from '../services/api';
-import { EmojiIcon } from '../utils/icons';
-=======
 import { authApi, userApi, carbonApi } from '../services/api';
->>>>>>> 542fd99 (Upadted)
+import { EmojiIcon } from '../utils/icons';
 
 export default function Register() {
   const dispatch = useDispatch();
@@ -48,11 +44,7 @@ export default function Register() {
       localStorage.setItem('access_token', tokens.access_token);
       const { data: user } = await userApi.getProfile();
       dispatch(setCredentials({ ...tokens, user }));
-<<<<<<< HEAD
       toast.success(`Welcome to GreenGauge, ${user.name}!`);
-      navigate('/dashboard');
-=======
-      toast.success(`Welcome to GreenGauge, ${user.name}! 🌱`);
 
       // ── Check for pending carbon entry from landing calculator ──
       const pending = sessionStorage.getItem('pendingCarbonEntry');
@@ -84,7 +76,6 @@ export default function Register() {
       } else {
         navigate('/dashboard');
       }
->>>>>>> 542fd99 (Upadted)
     } catch (err) {
       let msg = 'Registration failed. Please try again.';
       if (err.response?.data?.detail) {

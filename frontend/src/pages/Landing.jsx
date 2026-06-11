@@ -9,12 +9,9 @@ import {
   RiRestaurantLine, RiSaveLine, RiCheckLine,
 } from 'react-icons/ri';
 import { toggleTheme } from '../store/themeSlice';
-<<<<<<< HEAD
 import { EmojiIcon } from '../utils/icons';
-=======
 import { carbonApi } from '../services/api';
 import toast from 'react-hot-toast';
->>>>>>> 542fd99 (Upadted)
 
 // ── Animated Counter ─────────────────────────────────────────────────
 function AnimatedCounter({ end, suffix = '', duration = 2000 }) {
@@ -653,21 +650,12 @@ export default function Landing() {
           <div aria-hidden="true" style={{ position: 'absolute', top: '20%', left: '10%', width: 400, height: 400, background: 'radial-gradient(circle, var(--color-primary-dim) 0%, transparent 70%)', borderRadius: '50%', filter: 'blur(40px)', pointerEvents: 'none' }} />
           <div aria-hidden="true" style={{ position: 'absolute', bottom: '20%', right: '10%', width: 300, height: 300, background: 'radial-gradient(circle, var(--color-primary-dim) 0%, transparent 70%)', borderRadius: '50%', filter: 'blur(40px)', pointerEvents: 'none' }} />
 
-<<<<<<< HEAD
-        <div className="container" style={{ position: 'relative', zIndex: 1, padding: '100px 24px 60px', textAlign: 'center' }}>
-          <div className="animate-fade-up" style={{ marginBottom: 20 }}>
-            <span className="badge badge-green" style={{ fontSize: '0.8rem', padding: '6px 14px', display: 'inline-flex', alignItems: 'center', gap: 6 }}>
-              <EmojiIcon emoji="🌍" size={14} aria-hidden="true" /> Join 15,000+ Eco Warriors
-            </span>
-          </div>
-=======
           <div className="container" style={{ position: 'relative', zIndex: 1, padding: '100px 24px 60px', textAlign: 'center' }}>
             <div className="animate-fade-up" style={{ marginBottom: 20 }}>
-              <span className="badge badge-green" style={{ fontSize: '0.8rem', padding: '6px 14px' }}>
-                🌍 Join 15,000+ Eco Warriors
+              <span className="badge badge-green" style={{ fontSize: '0.8rem', padding: '6px 14px', display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+                <EmojiIcon emoji="🌍" size={14} aria-hidden="true" /> Join 15,000+ Eco Warriors
               </span>
             </div>
->>>>>>> 542fd99 (Upadted)
 
             <h1 className="animate-fade-up" style={{
               fontSize: 'clamp(2.5rem, 6vw, 5rem)',
@@ -677,9 +665,6 @@ export default function Landing() {
               marginBottom: 24,
               animationDelay: '0.1s',
             }}>
-<<<<<<< HEAD
-              <EmojiIcon emoji="🌍" size={80} aria-hidden="true" />
-=======
               Measure Your{' '}
               <span className="gradient-text" style={{ display: 'inline-block', minWidth: '8ch' }}>
                 <Typewriter words={['Carbon Footprint', 'Daily Emissions', 'Eco Impact', 'Sustainability']} />
@@ -721,9 +706,8 @@ export default function Landing() {
                 boxShadow: 'var(--color-primary-glow)',
                 animation: 'pulse-glow 3s ease-in-out infinite',
               }}>
-                <span style={{ fontSize: '5rem' }}>🌍</span>
+                <EmojiIcon emoji="🌍" size={80} aria-hidden="true" />
               </div>
->>>>>>> 542fd99 (Upadted)
             </div>
           </div>
         </section>
@@ -752,30 +736,6 @@ export default function Landing() {
           </div>
         </section>
 
-<<<<<<< HEAD
-      {/* ── CTA Banner ── */}
-      <section style={{ padding: '80px 0' }}>
-        <div className="container">
-          <div className="animate-fade-up" style={{
-            background: 'var(--bg-card)',
-            border: '1px solid var(--border-color)',
-            borderRadius: 'var(--radius-xl)',
-            padding: '60px 40px',
-            textAlign: 'center',
-            position: 'relative',
-            overflow: 'hidden',
-          }}>
-            <div style={{ position: 'absolute', top: -60, right: -60, width: 200, height: 200, background: 'radial-gradient(circle, var(--color-primary-dim) 0%, transparent 70%)', borderRadius: '50%' }} />
-            <h2 style={{ fontSize: 'clamp(1.6rem, 3.5vw, 2.5rem)', fontWeight: 800, marginBottom: 16 }}>
-              Ready to Make a <span className="gradient-text">Difference?</span>
-            </h2>
-            <p style={{ color: 'var(--text-secondary)', maxWidth: 500, margin: '0 auto 32px', fontSize: '1rem' }}>
-              Join thousands of eco-conscious individuals tracking and reducing their carbon footprint today.
-            </p>
-            <Link to="/register" className="btn btn-primary btn-lg">
-              <EmojiIcon emoji="🌱" size={18} aria-hidden="true" /> Start Your Green Journey <RiArrowRightLine />
-            </Link>
-=======
         {/* ── Features ── */}
         <section aria-labelledby="features-heading" style={{ padding: '80px 0' }}>
           <div className="container">
@@ -804,7 +764,6 @@ export default function Landing() {
                 </div>
               ))}
             </div>
->>>>>>> 542fd99 (Upadted)
           </div>
         </section>
 
@@ -904,13 +863,8 @@ export default function Landing() {
                 <Icon size={16} />
               </button>
             ))}
-<<<<<<< HEAD
-          </div>
-          <p style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>© 2024 GreenGauge. Built for a sustainable future. <EmojiIcon emoji="🌿" size={14} aria-hidden="true" /></p>
-=======
           </nav>
-          <p>© 2024 GreenGauge. Built for a sustainable future. 🌿</p>
->>>>>>> 542fd99 (Upadted)
+          <p style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>© 2024 GreenGauge. Built for a sustainable future. <EmojiIcon emoji="🌿" size={14} aria-hidden="true" /></p>
         </div>
       </footer>
     </div>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useId } from 'react';
 import { useDispatch } from 'react-redux';
 import toast from 'react-hot-toast';
 import {
@@ -14,39 +14,22 @@ import { EmojiIcon } from '../utils/icons';
 const STEPS = ['Transport', 'Energy', 'Food', 'Waste', 'Water & Gas', 'Digital', 'Shopping', 'Results'];
 
 const VEHICLE_TYPES = [
-<<<<<<< HEAD
-  { value: 'car_petrol', label: 'Petrol Car', factor: 0.21 },
-  { value: 'car_diesel', label: 'Diesel Car', factor: 0.17 },
-  { value: 'car_electric', label: 'Electric Car', factor: 0.05 },
-  { value: 'motorbike', label: 'Motorbike', factor: 0.11 },
-  { value: 'bus', label: 'Bus', factor: 0.09 },
-  { value: 'train', label: 'Train', factor: 0.04 },
-  { value: 'flight_domestic', label: 'Domestic Flight', factor: 0.26 },
-  { value: 'flight_international', label: 'International Flight', factor: 0.20 },
+  { value: 'flight_domestic', label: 'Domestic Flight', factor: 0.255 },
+  { value: 'flight_international', label: 'International Flight', factor: 0.195 },
+  { value: 'car_petrol', label: 'Petrol Car', factor: 0.192 },
+  { value: 'car_diesel', label: 'Diesel Car', factor: 0.171 },
+  { value: 'motorbike', label: 'Motorbike', factor: 0.114 },
+  { value: 'bus', label: 'Bus', factor: 0.105 },
+  { value: 'car_electric', label: 'Electric Car', factor: 0.053 },
+  { value: 'train', label: 'Train', factor: 0.041 },
+  { value: 'bicycle', label: 'Bicycle', factor: 0 },
 ];
 
 const DIET_TYPES = [
-  { value: 'vegan', label: 'Vegan', icon: '🌱', desc: '~1.5 kg CO₂/day', color: '#00ff88' },
-  { value: 'vegetarian', label: 'Vegetarian', icon: '🥗', desc: '~1.7 kg CO₂/day', color: '#3ddc84' },
-  { value: 'mixed', label: 'Mixed Diet', icon: '🍽️', desc: '~2.5 kg CO₂/day', color: '#ffb300' },
-  { value: 'high_meat', label: 'High Meat', icon: '🥩', desc: '~3.3 kg CO₂/day', color: '#ff5252' },
-=======
-  { value: 'flight_domestic', label: '✈️ Domestic Flight', factor: 0.255 },
-  { value: 'flight_international', label: '🌏 International Flight', factor: 0.195 },
-  { value: 'car_petrol', label: '🚗 Petrol Car', factor: 0.192 },
-  { value: 'car_diesel', label: '🚙 Diesel Car', factor: 0.171 },
-  { value: 'motorbike', label: '🏍️ Motorbike', factor: 0.114 },
-  { value: 'bus', label: '🚌 Bus', factor: 0.105 },
-  { value: 'car_electric', label: '⚡ Electric Car', factor: 0.053 },
-  { value: 'train', label: '🚆 Train', factor: 0.041 },
-  { value: 'bicycle', label: '🚲 Bicycle', factor: 0 },
-];
-
-const DIET_TYPES = [
-  { value: 'vegan', label: '🌱 Vegan', desc: '~1.5 kg CO₂/day · 100 kg/month', color: '#00ff88' },
-  { value: 'vegetarian', label: '🥗 Vegetarian', desc: '~1.7 kg CO₂/day · 150 kg/month', color: '#3ddc84' },
-  { value: 'mixed', label: '🍽️ Mixed Diet', desc: '~2.5 kg CO₂/day · 220 kg/month', color: '#ffb300' },
-  { value: 'high_meat', label: '🥩 High Meat', desc: '~3.3 kg CO₂/day · 330 kg/month', color: '#ff5252' },
+  { value: 'vegan', label: 'Vegan', icon: '🌱', desc: '~1.5 kg CO₂/day · 100 kg/month', color: '#00ff88' },
+  { value: 'vegetarian', label: 'Vegetarian', icon: '🥗', desc: '~1.7 kg CO₂/day · 150 kg/month', color: '#3ddc84' },
+  { value: 'mixed', label: 'Mixed Diet', icon: '🍽️', desc: '~2.5 kg CO₂/day · 220 kg/month', color: '#ffb300' },
+  { value: 'high_meat', label: 'High Meat', icon: '🥩', desc: '~3.3 kg CO₂/day · 330 kg/month', color: '#ff5252' },
 ];
 
 const SHOPPING_ITEMS = [
@@ -60,7 +43,6 @@ const SHOPPING_ITEMS = [
   { key: 'tablet', label: 'Tablets', emoji: '📱', factor: 130 },
   { key: 'tv', label: 'TVs', emoji: '📺', factor: 250 },
   { key: 'furniture', label: 'Furniture items', emoji: '🪑', factor: 90 },
->>>>>>> 542fd99 (Upadted)
 ];
 
 function StepIndicator({ step, total }) {
@@ -91,11 +73,13 @@ function StepIndicator({ step, total }) {
 }
 
 function NumberInput({ label, value, onChange, unit, min = 0, max, placeholder = '0', hint }) {
+  const inputId = useId();
   return (
     <div className="form-group">
-      <label className="form-label">{label}</label>
+      <label className="form-label" htmlFor={inputId}>{label}</label>
       <div style={{ position: 'relative' }}>
         <input
+          id={inputId}
           type="number" min={min} max={max}
           className="form-input"
           placeholder={placeholder}
@@ -134,17 +118,10 @@ function ResultCard({ result }) {
 
   return (
     <div className="animate-fade-in">
-<<<<<<< HEAD
-      {/* Score */}
-      <div className="glass-card" style={{ padding: '32px', textAlign: 'center', marginBottom: 20, background: `linear-gradient(135deg, ${impactColor}08, transparent)`, borderColor: `${impactColor}30` }}>
-        <div style={{ fontSize: '3.5rem', marginBottom: 8 }}>
-          <EmojiIcon emoji={eco_score >= 70 ? '🌿' : eco_score >= 40 ? '🌱' : '⚠️'} size={56} aria-hidden="true" />
-=======
       {/* Score strip */}
       <div className="glass-card" style={{ padding: '28px', textAlign: 'center', marginBottom: 16, background: `linear-gradient(135deg, ${impactColor}08, transparent)`, borderColor: `${impactColor}30` }}>
         <div style={{ fontSize: '3rem', marginBottom: 6 }}>
-          {eco_score >= 70 ? '🌿' : eco_score >= 40 ? '🌱' : '⚠️'}
->>>>>>> 542fd99 (Upadted)
+          <EmojiIcon emoji={eco_score >= 70 ? '🌿' : eco_score >= 40 ? '🌱' : '⚠️'} size={48} aria-hidden="true" />
         </div>
         <div style={{ fontSize: '2.8rem', fontWeight: 900, color: impactColor, fontFamily: 'var(--font-display)', lineHeight: 1 }}>
           {total_emission_kg.toFixed(2)}
@@ -171,20 +148,13 @@ function ResultCard({ result }) {
           { icon: '🚗', value: cars_equivalent, label: 'km equivalent by car', color: '#ff5252', formula: '÷ 0.192 kg/km' },
           ...(yearly_projection_kg ? [{ icon: '📈', value: (yearly_projection_kg / 1000).toFixed(1), label: 'Yearly projection (tonnes)', color: '#ffb300', formula: '× 365 days', noFixed: true }] : []),
         ].map((item, i) => (
-<<<<<<< HEAD
-          <div key={i} className="glass-card" style={{ padding: '20px', textAlign: 'center' }}>
-            <div style={{ fontSize: '2rem', marginBottom: 6 }}><EmojiIcon emoji={item.icon} size={32} aria-hidden="true" /></div>
-            <div style={{ fontSize: '1.6rem', fontWeight: 800, color: item.color, fontFamily: 'var(--font-display)' }}>{item.value.toFixed(1)}</div>
-            <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)', marginTop: 4 }}>{item.label}</div>
-=======
           <div key={i} className="glass-card" style={{ padding: '16px', textAlign: 'center' }}>
-            <div style={{ fontSize: '1.8rem', marginBottom: 4 }}>{item.icon}</div>
+            <div style={{ fontSize: '1.8rem', marginBottom: 4 }}><EmojiIcon emoji={item.icon} size={28} aria-hidden="true" /></div>
             <div style={{ fontSize: '1.5rem', fontWeight: 800, color: item.color, fontFamily: 'var(--font-display)' }}>
               {item.noFixed ? item.value : parseFloat(item.value).toFixed(1)}
             </div>
             <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', marginTop: 3 }}>{item.label}</div>
             <div style={{ fontSize: '0.65rem', color: 'var(--text-muted)', marginTop: 1, fontStyle: 'italic' }}>{item.formula}</div>
->>>>>>> 542fd99 (Upadted)
           </div>
         ))}
       </div>
@@ -236,15 +206,9 @@ function ResultCard({ result }) {
       </div>
 
       {/* Suggestions */}
-<<<<<<< HEAD
-      <div className="glass-card" style={{ padding: '24px' }}>
-        <h3 style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: '0.9rem', fontWeight: 700, marginBottom: 16, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.06em' }}><EmojiIcon emoji="💡" size={16} aria-hidden="true" /> Personalized Suggestions</h3>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-=======
       <div className="glass-card" style={{ padding: '20px' }}>
-        <h3 style={{ fontSize: '0.82rem', fontWeight: 700, marginBottom: 14, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>💡 Personalized Suggestions</h3>
+        <h3 style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: '0.82rem', fontWeight: 700, marginBottom: 14, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.06em' }}><EmojiIcon emoji="💡" size={16} aria-hidden="true" /> Personalized Suggestions</h3>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
->>>>>>> 542fd99 (Upadted)
           {suggestions.map((s, i) => (
             <div key={i} style={{ display: 'flex', gap: 10, padding: '10px 12px', background: 'rgba(0,255,136,0.05)', borderRadius: 'var(--radius-md)', border: '1px solid rgba(0,255,136,0.1)' }}>
               <div style={{ width: 20, height: 20, borderRadius: '50%', background: 'rgba(0,255,136,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: '0.65rem', fontWeight: 700, color: 'var(--color-primary)' }}>{i + 1}</div>
@@ -321,13 +285,8 @@ export default function Calculator() {
       const { data } = await carbonApi.calculate(payload);
       setResult(data);
       dispatch(setLastCalculation(data));
-<<<<<<< HEAD
-      setStep(4);
-      toast.success('Carbon footprint calculated!');
-=======
       setStep(RESULT_STEP);
-      toast.success('Carbon footprint calculated! 🌍');
->>>>>>> 542fd99 (Upadted)
+      toast.success('Carbon footprint calculated!');
     } catch (err) {
       toast.error(err.response?.data?.detail || 'Calculation failed. Please try again.');
     } finally {
@@ -350,25 +309,12 @@ export default function Calculator() {
     <div className="animate-fade-in" style={{ maxWidth: 800, margin: '0 auto' }}>
       <StepIndicator step={step} total={STEPS.length} />
 
-<<<<<<< HEAD
-      <div className="glass-card" style={{ padding: '36px 32px' }}>
-        {step < 4 && (
-          <div style={{ textAlign: 'center', marginBottom: 32 }}>
-            <div style={{ fontSize: '2rem', marginBottom: 8 }}>
-              <EmojiIcon emoji={['🚗', '⚡', '🍽️', '♻️'][step]} size={32} aria-hidden="true" />
-            </div>
-            <h2 style={{ fontSize: '1.4rem', fontWeight: 800, marginBottom: 6 }}>{STEPS[step]}</h2>
-            <p style={{ color: 'var(--text-muted)', fontSize: '0.88rem' }}>
-              {['Enter your travel details', 'Enter your energy usage', 'Select your diet type', 'Enter your waste details'][step]}
-            </p>
-=======
       <div className="glass-card" style={{ padding: '32px 28px' }}>
         {step < RESULT_STEP && (
           <div style={{ textAlign: 'center', marginBottom: 28 }}>
-            <div style={{ fontSize: '1.8rem', marginBottom: 6 }}>{stepIcons[step]}</div>
+            <div style={{ fontSize: '1.8rem', marginBottom: 6 }}><EmojiIcon emoji={stepIcons[step]} size={32} aria-hidden="true" /></div>
             <h2 style={{ fontSize: '1.3rem', fontWeight: 800, marginBottom: 4 }}>{STEPS[step]}</h2>
             <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>{stepDesc[step]}</p>
->>>>>>> 542fd99 (Upadted)
           </div>
         )}
 
@@ -378,21 +324,8 @@ export default function Calculator() {
             {transport.map((trip, i) => (
               <div key={i} style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1.5fr) minmax(0, 1fr) auto', gap: 10, alignItems: 'start' }}>
                 <div className="form-group">
-<<<<<<< HEAD
                   <label className="form-label" htmlFor={`trip-vehicle-${i}`}>Vehicle Type</label>
                   <select id={`trip-vehicle-${i}`} className="form-select" value={trip.vehicle_type} onChange={(e) => updateTrip(i, 'vehicle_type', e.target.value)}>
-                    {VEHICLE_TYPES.map((v) => <option key={v.value} value={v.value}>{v.label}</option>)}
-                  </select>
-                </div>
-                <div className="form-group">
-                  <label className="form-label" htmlFor={`trip-distance-${i}`}>Distance (km)</label>
-                  <input id={`trip-distance-${i}`} type="number" min="0" className="form-input" placeholder="e.g. 25" value={trip.distance_km} onChange={(e) => updateTrip(i, 'distance_km', e.target.value)} />
-                </div>
-                {transport.length > 1 && (
-                  <button onClick={() => removeTrip(i)} aria-label={`Remove trip ${i + 1}`} style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(255,82,82,0.1)', border: '1px solid rgba(255,82,82,0.2)', borderRadius: 'var(--radius-md)', padding: '10px 12px', cursor: 'pointer', color: '#ff5252', height: 42 }}><EmojiIcon emoji="✕" size={16} aria-hidden="true" /></button>
-=======
-                  <label className="form-label">Vehicle Type</label>
-                  <select className="form-select" value={trip.vehicle_type} onChange={(e) => updateTrip(i, 'vehicle_type', e.target.value)}>
                     {VEHICLE_TYPES.map((v) => (
                       <option key={v.value} value={v.value}>{v.label} ({v.factor} kg/km)</option>
                     ))}
@@ -402,27 +335,12 @@ export default function Calculator() {
                   onChange={(e) => updateTrip(i, 'distance_km', e.target.value)}
                   hint={`${((parseFloat(trip.distance_km) || 0) * (VEHICLE_TYPES.find(v => v.value === trip.vehicle_type)?.factor || 0)).toFixed(2)} kg CO₂`} />
                 {transport.length > 1 && (
-                  <button onClick={() => removeTrip(i)} style={{ background: 'rgba(255,82,82,0.1)', border: '1px solid rgba(255,82,82,0.2)', borderRadius: 'var(--radius-md)', padding: '10px 12px', cursor: 'pointer', color: '#ff5252', height: 42, marginTop: 22 }}>✕</button>
->>>>>>> 542fd99 (Upadted)
+                  <button onClick={() => removeTrip(i)} aria-label={`Remove trip ${i + 1}`} style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(255,82,82,0.1)', border: '1px solid rgba(255,82,82,0.2)', borderRadius: 'var(--radius-md)', padding: '10px 12px', cursor: 'pointer', color: '#ff5252', height: 42, marginTop: 22 }}><EmojiIcon emoji="✕" size={16} aria-hidden="true" /></button>
                 )}
               </div>
             ))}
             <button onClick={addTrip} className="btn btn-ghost btn-sm" style={{ alignSelf: 'flex-start' }}>+ Add Another Trip</button>
 
-<<<<<<< HEAD
-        {/* Step 1: Energy */}
-        {step === 1 && (
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
-            {[
-              { key: 'electricity_kwh', label: 'Electricity', icon: '⚡', unit: 'kWh' },
-              { key: 'lpg_kg', label: 'LPG Gas', icon: '🔥', unit: 'kg' },
-              { key: 'natural_gas_m3', label: 'Natural Gas', icon: '🏠', unit: 'm³' },
-              { key: 'renewable_kwh', label: 'Renewable', icon: '☀️', unit: 'kWh' },
-            ].map(({ key, label, icon, unit }) => (
-              <div key={key} className="form-group">
-                <label className="form-label" htmlFor={`energy-${key}`} style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}><EmojiIcon emoji={icon} size={16} aria-hidden="true" /> {label} ({unit})</label>
-                <input id={`energy-${key}`} name={key} type="number" min="0" className="form-input" placeholder="0" value={energy[key]} onChange={(e) => setEnergy((p) => ({ ...p, [key]: e.target.value }))} />
-=======
             {/* Reference table */}
             <div style={{ marginTop: 8, padding: '14px', background: 'rgba(0,255,136,0.04)', borderRadius: 'var(--radius-md)', border: '1px solid var(--border-color)' }}>
               <div style={{ fontSize: '0.72rem', fontWeight: 700, color: 'var(--text-muted)', marginBottom: 8, textTransform: 'uppercase' }}>Emission Factors Reference</div>
@@ -433,7 +351,6 @@ export default function Calculator() {
                     <span style={{ color: 'var(--color-primary)', fontWeight: 600, whiteSpace: 'nowrap' }}>{v.factor} kg/km</span>
                   </div>
                 ))}
->>>>>>> 542fd99 (Upadted)
               </div>
             </div>
           </div>
@@ -471,7 +388,7 @@ export default function Calculator() {
                     background: food.diet_type === diet.value ? `${diet.color}12` : 'var(--bg-input)',
                     cursor: 'pointer', textAlign: 'center',
                     boxShadow: food.diet_type === diet.value ? `0 0 15px ${diet.color}30` : 'none',
-<<<<<<< HEAD
+                    transition: 'all var(--transition-fast)',
                   }}
                 >
                   <div style={{ fontSize: '1.4rem', marginBottom: 6 }}><EmojiIcon emoji={diet.icon} size={22} aria-hidden="true" /></div>
@@ -480,25 +397,9 @@ export default function Calculator() {
                 </button>
               ))}
             </div>
-            <div className="form-group" style={{ maxWidth: 200 }}>
-              <label className="form-label" htmlFor="food-days">Number of Days</label>
-              <input id="food-days" name="days" type="number" min="1" max="365" className="form-input" value={food.days} onChange={(e) => setFood((p) => ({ ...p, days: e.target.value }))} />
-            </div>
-=======
-                    transition: 'all var(--transition-fast)',
-                  }}>
-                  <div style={{ fontSize: '1.3rem', marginBottom: 4 }}>{diet.label.split(' ')[0]}</div>
-                  <div style={{ fontSize: '0.85rem', fontWeight: 600, color: food.diet_type === diet.value ? diet.color : 'var(--text-primary)' }}>
-                    {diet.label.slice(diet.label.indexOf(' ') + 1)}
-                  </div>
-                  <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', marginTop: 3 }}>{diet.desc}</div>
-                </button>
-              ))}
-            </div>
             <NumberInput label="Number of Days" value={food.days} min={1} max={365} placeholder="30"
               onChange={(e) => setFood((p) => ({ ...p, days: e.target.value }))}
               hint="Period for which to calculate food emissions" />
->>>>>>> 542fd99 (Upadted)
           </div>
         )}
 
@@ -506,27 +407,14 @@ export default function Calculator() {
         {step === 3 && (
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
             {[
-<<<<<<< HEAD
-              { key: 'general_kg', label: 'General Waste', icon: '🗑️', unit: 'kg', desc: '0.5 kg CO₂/kg' },
-              { key: 'recycled_kg', label: 'Recycled', icon: '♻️', unit: 'kg', desc: '0.1 kg CO₂/kg' },
-              { key: 'composted_kg', label: 'Composted', icon: '🌿', unit: 'kg', desc: '0.05 kg CO₂/kg' },
-              { key: 'landfill_kg', label: 'Landfill', icon: '⚠️', unit: 'kg', desc: '0.8 kg CO₂/kg' },
-            ].map(({ key, label, icon, unit, desc }) => (
-              <div key={key} className="form-group">
-                <label className="form-label" htmlFor={`waste-${key}`} style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}><EmojiIcon emoji={icon} size={16} aria-hidden="true" /> {label} ({unit})</label>
-                <input id={`waste-${key}`} name={key} type="number" min="0" className="form-input" placeholder="0" value={waste[key]} onChange={(e) => setWaste((p) => ({ ...p, [key]: e.target.value }))} />
-                <span style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>{desc}</span>
-              </div>
-=======
-              { key: 'general_kg', label: '🗑️ General Waste', factor: 0.57 },
-              { key: 'recycled_kg', label: '♻️ Recycled', factor: 0.10 },
-              { key: 'composted_kg', label: '🌿 Composted', factor: 0.05 },
-              { key: 'landfill_kg', label: '⚠️ Landfill', factor: 0.80 },
-            ].map(({ key, label, factor }) => (
-              <NumberInput key={key} label={label} value={waste[key]} unit="kg"
+              { key: 'general_kg', label: 'General Waste', icon: '🗑️', factor: 0.57 },
+              { key: 'recycled_kg', label: 'Recycled', icon: '♻️', factor: 0.10 },
+              { key: 'composted_kg', label: 'Composted', icon: '🌿', factor: 0.05 },
+              { key: 'landfill_kg', label: 'Landfill', icon: '⚠️', factor: 0.80 },
+            ].map(({ key, label, icon, factor }) => (
+              <NumberInput key={key} label={`${icon} ${label}`} value={waste[key]} unit="kg"
                 onChange={(e) => setWaste((p) => ({ ...p, [key]: e.target.value }))}
                 hint={`${((parseFloat(waste[key]) || 0) * factor).toFixed(2)} kg CO₂ (${factor} kg/kg)`} />
->>>>>>> 542fd99 (Upadted)
             ))}
           </div>
         )}
