@@ -2,14 +2,13 @@ fastapi
 uvicorn[standard]
 sqlalchemy
 python-jose[cryptography]
-passlib[bcrypt]
-bcrypt<5
+bcrypt
 python-multipart
 pydantic[email]
-email-validator
 pydantic-settings
 python-dotenv
 httpx
 aiosqlite
 asyncpg
 greenlet
+email-validator

@@ -243,6 +243,11 @@ a:hover { opacity: 0.8; }
   padding-right: 40px;
 }
 
+.form-select option {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
 .form-textarea { resize: vertical; min-height: 100px; }
 
 /* ─── Badge ───────────────────────────────────────────────────────── */

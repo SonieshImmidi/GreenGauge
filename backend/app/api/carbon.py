@@ -34,8 +34,14 @@ async def calculate_footprint(
     energy_dict = payload.energy.model_dump() if payload.energy else None
     food_dict = payload.food.model_dump() if payload.food else None
     waste_dict = payload.waste.model_dump() if payload.waste else None
+    water_dict = payload.water.model_dump() if payload.water else None
+    digital_dict = payload.digital.model_dump() if payload.digital else None
+    shopping_dict = payload.shopping.model_dump() if payload.shopping else None
 
-    result = calculate_carbon(transport_list, energy_dict, food_dict, waste_dict)
+    result = calculate_carbon(
+        transport_list, energy_dict, food_dict, waste_dict,
+        water_dict, digital_dict, shopping_dict,
+    )
 
     # Persist a record per category that has emissions
     categories = {
@@ -43,6 +49,9 @@ async def calculate_footprint(
         "energy": result.energy_kg,
         "food": result.food_kg,
         "waste": result.waste_kg,
+        "water": result.water_kg,
+        "digital": result.digital_kg,
+        "shopping": result.shopping_kg,
     }
     for cat, val in categories.items():
         if val > 0:
@@ -50,7 +59,11 @@ async def calculate_footprint(
                 user_id=current_user.id,
                 category=cat,
                 emission_value=val,
-                details=json.dumps({"total_session": result.total_emission_kg}),
+                details=json.dumps({
+                    "total_session": result.total_emission_kg,
+                    "carbon_score": result.carbon_score,
+                    "yearly_projection_kg": result.yearly_projection_kg,
+                }),
             )
             db.add(record)
 
@@ -63,12 +76,17 @@ async def calculate_footprint(
             energy=result.energy_kg,
             food=result.food_kg,
             waste=result.waste_kg,
+            water=result.water_kg,
+            digital=result.digital_kg,
+            shopping=result.shopping_kg,
         ),
         eco_score=result.eco_score,
         impact_level=result.impact_level,
         suggestions=result.suggestions,
         trees_equivalent=result.trees_equivalent,
         cars_equivalent=result.cars_equivalent,
+        yearly_projection_kg=result.yearly_projection_kg,
+        carbon_score=result.carbon_score,
     )
 
 

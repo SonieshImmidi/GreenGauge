@@ -4,8 +4,12 @@ import { useDispatch } from 'react-redux';
 import toast from 'react-hot-toast';
 import { RiLeafLine, RiMailLine, RiLockLine, RiUserLine, RiEyeLine, RiEyeOffLine } from 'react-icons/ri';
 import { setCredentials } from '../store/authSlice';
+<<<<<<< HEAD
 import { authApi, userApi } from '../services/api';
 import { EmojiIcon } from '../utils/icons';
+=======
+import { authApi, userApi, carbonApi } from '../services/api';
+>>>>>>> 542fd99 (Upadted)
 
 export default function Register() {
   const dispatch = useDispatch();
@@ -44,8 +48,43 @@ export default function Register() {
       localStorage.setItem('access_token', tokens.access_token);
       const { data: user } = await userApi.getProfile();
       dispatch(setCredentials({ ...tokens, user }));
+<<<<<<< HEAD
       toast.success(`Welcome to GreenGauge, ${user.name}!`);
       navigate('/dashboard');
+=======
+      toast.success(`Welcome to GreenGauge, ${user.name}! 🌱`);
+
+      // ── Check for pending carbon entry from landing calculator ──
+      const pending = sessionStorage.getItem('pendingCarbonEntry');
+      if (pending) {
+        try {
+          const entry = JSON.parse(pending);
+          await carbonApi.calculate({
+            transportation: [
+              ...(entry.carKm > 0 ? [{ vehicle_type: 'car_petrol', distance_km: entry.carKm * 365 }] : []),
+              ...(entry.flights > 0 ? [{ vehicle_type: 'flight_international', distance_km: entry.flights * 4000 }] : []),
+            ],
+            energy: { electricity_kwh: 0, lpg_kg: (entry.lpgKg || 0) * 12, natural_gas_m3: 0, renewable_kwh: 0 },
+            food: {
+              diet_type: (entry.meatMeals || 0) === 0 ? 'vegan' : entry.meatMeals <= 3 ? 'vegetarian' : entry.meatMeals <= 10 ? 'mixed' : 'high_meat',
+              days: 365,
+            },
+            waste: { general_kg: 0, recycled_kg: 0, composted_kg: 0, landfill_kg: 0 },
+            water: { litres_per_day: entry.waterLitres || 0, days: 365 },
+            digital: { streaming_hours_month: (entry.streamingHrs || 0) * 30, screen_hours_day: 0, ai_queries_month: 0, days: 365 },
+            shopping: { tshirt: (entry.clothesBought || 0) * 12, jeans: 0, dress: 0, jacket: 0, shoes: 0, smartphone: 0, laptop: 0, tablet: 0, tv: 0, furniture: 0 },
+          });
+          sessionStorage.removeItem('pendingCarbonEntry');
+          toast.success('Your carbon estimate has been saved! 📊');
+          navigate('/history');
+        } catch {
+          sessionStorage.removeItem('pendingCarbonEntry');
+          navigate('/dashboard');
+        }
+      } else {
+        navigate('/dashboard');
+      }
+>>>>>>> 542fd99 (Upadted)
     } catch (err) {
       let msg = 'Registration failed. Please try again.';
       if (err.response?.data?.detail) {

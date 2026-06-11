@@ -15,6 +15,7 @@ import History from './pages/History';
 import Recommendations from './pages/Recommendations';
 import Hub from './pages/Hub';
 import Profile from './pages/Profile';
+import AIChatWidget from './components/AIChatWidget';
 import './index.css';
 
 function AppInner() {
@@ -63,6 +64,8 @@ function AppInner() {
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Router>
+      {/* AI Chat Widget — visible on all pages */}
+      <AIChatWidget />
     </>
   );
 }
